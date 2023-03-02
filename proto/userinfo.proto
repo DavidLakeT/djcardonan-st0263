@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package grpc;
+
+message UserInfo {
+  string username = 1;
+  string email = 2;
+  int32 name_order = 3;
+}
+
+service UserInformation {
+  rpc GetUserInformation (UserInfo) returns (UserInfo) {}
+}
