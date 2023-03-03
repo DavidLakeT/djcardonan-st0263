@@ -2,12 +2,17 @@ syntax = "proto3";
 
 package grpc;
 
+option go_package = "github.com/DavidLakeT/djcardonan-st0263/proto";
+
 message UserInfo {
   string username = 1;
   string email = 2;
-  int32 name_order = 3;
+}
+
+message UserResponse {
+  int32 name_length = 1;
 }
 
 service UserInformation {
-  rpc GetUserInformation (UserInfo) returns (UserInfo) {}
+  rpc GetUserInformation (UserInfo) returns (UserResponse) {}
 }
