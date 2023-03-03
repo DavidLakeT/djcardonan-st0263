@@ -19,89 +19,126 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserInformation_GetUserInformation_FullMethodName = "/grpc.UserInformation/GetUserInformation"
+	FilesInformation_ListFiles_FullMethodName   = "/grpc.FilesInformation/ListFiles"
+	FilesInformation_SearchFiles_FullMethodName = "/grpc.FilesInformation/SearchFiles"
 )
 
-// UserInformationClient is the client API for UserInformation service.
+// FilesInformationClient is the client API for FilesInformation service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserInformationClient interface {
-	GetUserInformation(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*UserResponse, error)
+type FilesInformationClient interface {
+	ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error)
+	SearchFiles(ctx context.Context, in *SearchFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error)
 }
 
-type userInformationClient struct {
+type filesInformationClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserInformationClient(cc grpc.ClientConnInterface) UserInformationClient {
-	return &userInformationClient{cc}
+func NewFilesInformationClient(cc grpc.ClientConnInterface) FilesInformationClient {
+	return &filesInformationClient{cc}
 }
 
-func (c *userInformationClient) GetUserInformation(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*UserResponse, error) {
-	out := new(UserResponse)
-	err := c.cc.Invoke(ctx, UserInformation_GetUserInformation_FullMethodName, in, out, opts...)
+func (c *filesInformationClient) ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error) {
+	out := new(FilesResponse)
+	err := c.cc.Invoke(ctx, FilesInformation_ListFiles_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UserInformationServer is the server API for UserInformation service.
-// All implementations must embed UnimplementedUserInformationServer
+func (c *filesInformationClient) SearchFiles(ctx context.Context, in *SearchFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error) {
+	out := new(FilesResponse)
+	err := c.cc.Invoke(ctx, FilesInformation_SearchFiles_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// FilesInformationServer is the server API for FilesInformation service.
+// All implementations must embed UnimplementedFilesInformationServer
 // for forward compatibility
-type UserInformationServer interface {
-	GetUserInformation(context.Context, *UserInfo) (*UserResponse, error)
-	mustEmbedUnimplementedUserInformationServer()
+type FilesInformationServer interface {
+	ListFiles(context.Context, *ListFilesRequest) (*FilesResponse, error)
+	SearchFiles(context.Context, *SearchFilesRequest) (*FilesResponse, error)
+	mustEmbedUnimplementedFilesInformationServer()
 }
 
-// UnimplementedUserInformationServer must be embedded to have forward compatible implementations.
-type UnimplementedUserInformationServer struct {
+// UnimplementedFilesInformationServer must be embedded to have forward compatible implementations.
+type UnimplementedFilesInformationServer struct {
 }
 
-func (UnimplementedUserInformationServer) GetUserInformation(context.Context, *UserInfo) (*UserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserInformation not implemented")
+func (UnimplementedFilesInformationServer) ListFiles(context.Context, *ListFilesRequest) (*FilesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListFiles not implemented")
 }
-func (UnimplementedUserInformationServer) mustEmbedUnimplementedUserInformationServer() {}
+func (UnimplementedFilesInformationServer) SearchFiles(context.Context, *SearchFilesRequest) (*FilesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchFiles not implemented")
+}
+func (UnimplementedFilesInformationServer) mustEmbedUnimplementedFilesInformationServer() {}
 
-// UnsafeUserInformationServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserInformationServer will
+// UnsafeFilesInformationServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to FilesInformationServer will
 // result in compilation errors.
-type UnsafeUserInformationServer interface {
-	mustEmbedUnimplementedUserInformationServer()
+type UnsafeFilesInformationServer interface {
+	mustEmbedUnimplementedFilesInformationServer()
 }
 
-func RegisterUserInformationServer(s grpc.ServiceRegistrar, srv UserInformationServer) {
-	s.RegisterService(&UserInformation_ServiceDesc, srv)
+func RegisterFilesInformationServer(s grpc.ServiceRegistrar, srv FilesInformationServer) {
+	s.RegisterService(&FilesInformation_ServiceDesc, srv)
 }
 
-func _UserInformation_GetUserInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserInfo)
+func _FilesInformation_ListFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListFilesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserInformationServer).GetUserInformation(ctx, in)
+		return srv.(FilesInformationServer).ListFiles(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserInformation_GetUserInformation_FullMethodName,
+		FullMethod: FilesInformation_ListFiles_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInformationServer).GetUserInformation(ctx, req.(*UserInfo))
+		return srv.(FilesInformationServer).ListFiles(ctx, req.(*ListFilesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// UserInformation_ServiceDesc is the grpc.ServiceDesc for UserInformation service.
+func _FilesInformation_SearchFiles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchFilesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FilesInformationServer).SearchFiles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FilesInformation_SearchFiles_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FilesInformationServer).SearchFiles(ctx, req.(*SearchFilesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// FilesInformation_ServiceDesc is the grpc.ServiceDesc for FilesInformation service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UserInformation_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc.UserInformation",
-	HandlerType: (*UserInformationServer)(nil),
+var FilesInformation_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "grpc.FilesInformation",
+	HandlerType: (*FilesInformationServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetUserInformation",
-			Handler:    _UserInformation_GetUserInformation_Handler,
+			MethodName: "ListFiles",
+			Handler:    _FilesInformation_ListFiles_Handler,
+		},
+		{
+			MethodName: "SearchFiles",
+			Handler:    _FilesInformation_SearchFiles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

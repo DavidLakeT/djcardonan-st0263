@@ -4,15 +4,20 @@ package grpc;
 
 option go_package = "github.com/DavidLakeT/djcardonan-st0263/proto";
 
-message UserInfo {
-  string username = 1;
-  string email = 2;
+message FilesResponse {
+  string file_list = 1;
+  int32 file_amount = 2;
 }
 
-message UserResponse {
-  int32 name_length = 1;
+message ListFilesRequest {
+  optional int32 limit = 1;
 }
 
-service UserInformation {
-  rpc GetUserInformation (UserInfo) returns (UserResponse) {}
+message SearchFilesRequest {
+  string pattern = 1;
+}
+
+service FilesInformation {
+  rpc ListFiles (ListFilesRequest) returns (FilesResponse) {}
+  rpc SearchFiles (SearchFilesRequest) returns (FilesResponse) {}
 }

@@ -16,19 +16,18 @@ type user struct {
 
 func main() {
 
-	testUser := &user{"David", "david@example.com"}
-
 	conn, err := grpc.Dial("localhost:9000", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Error al conectarse: %v", err)
 	}
 
 	defer conn.Close()
-	c := pb.NewUserInformationClient(conn)
-	userInfo := &pb.UserInfo{Username: testUser.username, Email: testUser.email}
-	response, err := c.GetUserInformation(context.Background(), userInfo)
+	c := pb.NewFilesInformationClient(conn)
+	userInfo := &pb.ListFilesRequest{}
+	response, err := c.ListFiles(context.Background(), userInfo)
 	if err != nil {
 		log.Fatalf("Error al obtener información de usuario: %v", err)
 	}
-	log.Printf("Cantidad de letras del nombre del usuario: %v", response.NameLength)
+	log.Printf("Respuesta (cantidad): %v", response.FileAmount)
+	log.Printf("Respuesta (lista): %v", response.FileList)
 }

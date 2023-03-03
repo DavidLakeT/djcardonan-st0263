@@ -12,13 +12,13 @@ import (
 )
 
 type server struct {
-	pb.UnimplementedUserInformationServer
+	pb.UnimplementedFilesInformationServer
 }
 
-func (s *server) GetUserInformation(ctx context.Context, userInfo *pb.UserInfo) (*pb.UserResponse, error) {
-	log.Printf("Recibido: %v", userInfo)
-	letterAmount := len(userInfo.Username)
-	return &pb.UserResponse{NameLength: int32(letterAmount)}, nil
+func (s *server) ListFiles(ctx context.Context, requestInfo *pb.ListFilesRequest) (*pb.FilesResponse, error) {
+
+	log.Printf("Recibido: %v", requestInfo)
+	return &pb.FilesResponse{FileList: "Attack On Titan", FileAmount: 12}, nil
 }
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 		log.Fatalf("Error al escuchar: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterUserInformationServer(s, &server{})
+	pb.RegisterFilesInformationServer(s, &server{})
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Error al servir: %v", err)
