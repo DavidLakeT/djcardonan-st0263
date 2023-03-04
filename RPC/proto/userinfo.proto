@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package grpc;
 
-option go_package = "github.com/DavidLakeT/djcardonan-st0263/proto";
+option go_package = "github.com/DavidLakeT/djcardonan-st0263/RPC";
 
 message FilesResponse {
   string file_list = 1;

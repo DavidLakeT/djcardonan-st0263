@@ -1,4 +1,4 @@
-module github.com/DavidLakeT/djcardonan-st0263
+module github.com/DavidLakeT/djcardonan-st0263/RPC
 
 go 1.20
 

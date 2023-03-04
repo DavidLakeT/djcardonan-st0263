@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.0
-// source: proto/userinfo.proto
+// source: RPC/proto/userinfo.proto
 
-package proto
+package RPC
 
 import (
 	context "context"
@@ -142,5 +142,5 @@ var FilesInformation_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/userinfo.proto",
+	Metadata: "RPC/proto/userinfo.proto",
 }
