@@ -2,8 +2,11 @@ package main
 
 import (
 	"context"
+	"io/ioutil"
 	"log"
+	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -12,16 +15,6 @@ import (
 func failOnError(err error, msg string) {
 	if err != nil {
 		log.Panicf("%s: %s", msg, err)
-	}
-}
-
-func fib(n int) int {
-	if n == 0 {
-		return 0
-	} else if n == 1 {
-		return 1
-	} else {
-		return fib(n-1) + fib(n-2)
 	}
 }
 
@@ -68,11 +61,8 @@ func main() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
 		for d := range msgs {
-			n, err := strconv.Atoi(string(d.Body))
-			failOnError(err, "Failed to convert body to integer")
 
-			log.Printf(" [.] fib(%d)", n)
-			response := fib(n)
+			response := searchFile(string(d.Body))
 
 			err = ch.PublishWithContext(ctx,
 				"",        // exchange
@@ -82,7 +72,7 @@ func main() {
 				amqp.Publishing{
 					ContentType:   "text/plain",
 					CorrelationId: d.CorrelationId,
-					Body:          []byte(strconv.Itoa(response)),
+					Body:          []byte(strconv.FormatBool(response)),
 				})
 			failOnError(err, "Failed to publish a message")
 
@@ -92,4 +82,36 @@ func main() {
 
 	log.Printf(" [*] Awaiting RPC requests")
 	<-forever
+}
+
+func searchFile(name string) bool {
+
+	if _, err := os.Stat("Files/" + name); err == nil {
+		return true
+	} else {
+		return false
+	}
+}
+
+func listFiles() (string, int) {
+
+	names := make([]string, 0)
+	amount := 0
+
+	files, err := ioutil.ReadDir("Files/")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+
+		if file.IsDir() {
+			continue
+		}
+
+		names = append(names, file.Name())
+		amount += 1
+	}
+
+	return strings.Join(names[:], " , "), amount
 }

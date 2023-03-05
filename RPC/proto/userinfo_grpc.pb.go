@@ -27,8 +27,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FilesInformationClient interface {
-	ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error)
-	SearchFiles(ctx context.Context, in *SearchFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error)
+	ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*ListFilesResponse, error)
+	SearchFiles(ctx context.Context, in *SearchFilesRequest, opts ...grpc.CallOption) (*SearchFilesResponse, error)
 }
 
 type filesInformationClient struct {
@@ -39,8 +39,8 @@ func NewFilesInformationClient(cc grpc.ClientConnInterface) FilesInformationClie
 	return &filesInformationClient{cc}
 }
 
-func (c *filesInformationClient) ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error) {
-	out := new(FilesResponse)
+func (c *filesInformationClient) ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (*ListFilesResponse, error) {
+	out := new(ListFilesResponse)
 	err := c.cc.Invoke(ctx, FilesInformation_ListFiles_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -48,8 +48,8 @@ func (c *filesInformationClient) ListFiles(ctx context.Context, in *ListFilesReq
 	return out, nil
 }
 
-func (c *filesInformationClient) SearchFiles(ctx context.Context, in *SearchFilesRequest, opts ...grpc.CallOption) (*FilesResponse, error) {
-	out := new(FilesResponse)
+func (c *filesInformationClient) SearchFiles(ctx context.Context, in *SearchFilesRequest, opts ...grpc.CallOption) (*SearchFilesResponse, error) {
+	out := new(SearchFilesResponse)
 	err := c.cc.Invoke(ctx, FilesInformation_SearchFiles_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (c *filesInformationClient) SearchFiles(ctx context.Context, in *SearchFile
 // All implementations must embed UnimplementedFilesInformationServer
 // for forward compatibility
 type FilesInformationServer interface {
-	ListFiles(context.Context, *ListFilesRequest) (*FilesResponse, error)
-	SearchFiles(context.Context, *SearchFilesRequest) (*FilesResponse, error)
+	ListFiles(context.Context, *ListFilesRequest) (*ListFilesResponse, error)
+	SearchFiles(context.Context, *SearchFilesRequest) (*SearchFilesResponse, error)
 	mustEmbedUnimplementedFilesInformationServer()
 }
 
@@ -70,10 +70,10 @@ type FilesInformationServer interface {
 type UnimplementedFilesInformationServer struct {
 }
 
-func (UnimplementedFilesInformationServer) ListFiles(context.Context, *ListFilesRequest) (*FilesResponse, error) {
+func (UnimplementedFilesInformationServer) ListFiles(context.Context, *ListFilesRequest) (*ListFilesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListFiles not implemented")
 }
-func (UnimplementedFilesInformationServer) SearchFiles(context.Context, *SearchFilesRequest) (*FilesResponse, error) {
+func (UnimplementedFilesInformationServer) SearchFiles(context.Context, *SearchFilesRequest) (*SearchFilesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchFiles not implemented")
 }
 func (UnimplementedFilesInformationServer) mustEmbedUnimplementedFilesInformationServer() {}

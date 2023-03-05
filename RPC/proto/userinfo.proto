@@ -4,20 +4,24 @@ package grpc;
 
 option go_package = "github.com/DavidLakeT/djcardonan-st0263/RPC";
 
-message FilesResponse {
-  string file_list = 1;
-  int32 file_amount = 2;
-}
-
 message ListFilesRequest {
   optional int32 limit = 1;
+}
+
+message ListFilesResponse {
+  string file_list = 1;
+  int32 file_amount = 2;
 }
 
 message SearchFilesRequest {
   string pattern = 1;
 }
 
+message SearchFilesResponse{
+  bool exists = 1;
+}
+
 service FilesInformation {
-  rpc ListFiles (ListFilesRequest) returns (FilesResponse) {}
-  rpc SearchFiles (SearchFilesRequest) returns (FilesResponse) {}
+  rpc ListFiles (ListFilesRequest) returns (ListFilesResponse) {}
+  rpc SearchFiles (SearchFilesRequest) returns (SearchFilesResponse) {}
 }

@@ -17,13 +17,38 @@ func main() {
 	}
 
 	defer conn.Close()
-	c := pb.NewFilesInformationClient(conn)
+	//c := pb.NewFilesInformationClient(conn)
 
-	userInfo := &pb.ListFilesRequest{}
-	response, err := c.ListFiles(context.Background(), userInfo)
+	//Aquí se llaman a los métodos de abajo
+}
+
+func RequestSearchFile(client pb.FilesInformationClient, filename string) bool {
+
+	filesInfo := &pb.SearchFilesRequest{Pattern: filename}
+	response, err := client.SearchFiles(context.Background(), filesInfo)
 	if err != nil {
 		log.Fatalf("Error al obtener información de usuario: %v", err)
 	}
-	log.Printf("Respuesta (cantidad): %v", response.FileAmount)
-	log.Printf("Respuesta (lista): %v", response.FileList)
+
+	result := response.Exists
+
+	log.Printf("Existencia del archivo: %v", response.Exists)
+	return result
+}
+
+func requestListFiles(client pb.FilesInformationClient) (int32, string) {
+
+	filesInfo := &pb.ListFilesRequest{}
+	response, err := client.ListFiles(context.Background(), filesInfo)
+	if err != nil {
+		log.Fatalf("Error al obtener información de usuario: %v", err)
+	}
+
+	resultList := response.FileList
+	resultAmount := response.FileAmount
+
+	log.Printf("Cantidad de archivos: %v", response.FileAmount)
+	log.Printf("Nombres de archivos: %v", response.FileList)
+	return resultAmount, resultList
+
 }
