@@ -62,7 +62,15 @@ func main() {
 		defer cancel()
 		for d := range msgs {
 
-			response := searchFile(string(d.Body))
+			info := string(d.Body)
+			var response string
+
+			if info == "list" {
+
+				response = listFiles()
+			} else {
+				response = strconv.FormatBool(searchFile(info))
+			}
 
 			err = ch.PublishWithContext(ctx,
 				"",        // exchange
@@ -72,7 +80,7 @@ func main() {
 				amqp.Publishing{
 					ContentType:   "text/plain",
 					CorrelationId: d.CorrelationId,
-					Body:          []byte(strconv.FormatBool(response)),
+					Body:          []byte(response),
 				})
 			failOnError(err, "Failed to publish a message")
 
@@ -93,10 +101,9 @@ func searchFile(name string) bool {
 	}
 }
 
-func listFiles() (string, int) {
+func listFiles() string {
 
 	names := make([]string, 0)
-	amount := 0
 
 	files, err := ioutil.ReadDir("Files/")
 	if err != nil {
@@ -110,8 +117,7 @@ func listFiles() (string, int) {
 		}
 
 		names = append(names, file.Name())
-		amount += 1
 	}
 
-	return strings.Join(names[:], " , "), amount
+	return strings.Join(names[:], " , ")
 }

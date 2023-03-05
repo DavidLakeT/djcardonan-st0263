@@ -2,4 +2,6 @@ go 1.20
 
 use (
     ./RPC
+    ./MOM
+    ./APIGateway
 )

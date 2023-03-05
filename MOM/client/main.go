@@ -1,11 +1,10 @@
-package main
+package mom
 
 import (
 	"context"
 	"log"
 	"math/rand"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -30,7 +29,7 @@ func randInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-func fibonacciRPC(filename string) (res bool, err error) {
+func RequestRPC(filename string) (res string, err error) {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
@@ -80,8 +79,7 @@ func fibonacciRPC(filename string) (res bool, err error) {
 
 	for d := range msgs {
 		if corrId == d.CorrelationId {
-			res, err = strconv.ParseBool(string(d.Body))
-			failOnError(err, "Failed to convert body to bool")
+			res = string(d.Body)
 			break
 		}
 	}
@@ -89,21 +87,21 @@ func fibonacciRPC(filename string) (res bool, err error) {
 	return
 }
 
-func main() {
+func run() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	n := bodyFrom(os.Args)
 
-	res, err := fibonacciRPC(n)
-	failOnError(err, "Failed to handle RPC request")
+	res, err := RequestRPC(n)
+	failOnError(err, "Failed to handle search file RPC request")
 
-	log.Printf(" [.] Got %v", res)
+	log.Printf(" [.] Search Got %v", res)
 }
 
 func bodyFrom(args []string) string {
 
 	if (len(args) < 2) || os.Args[1] == "" {
-		return "TEST.jpg"
+		return "list"
 	}
 
 	return strings.Join(args[1:], "")

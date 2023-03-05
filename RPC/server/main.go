@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
@@ -22,7 +21,7 @@ type server struct {
 func (s *server) ListFiles(ctx context.Context, requestInfo *pb.ListFilesRequest) (*pb.ListFilesResponse, error) {
 
 	log.Printf("Recibida petición de listado.")
-	return &pb.ListFilesResponse{FileList: "Attack On Titan", FileAmount: 12}, nil
+	return &pb.ListFilesResponse{FileList: listFiles()}, nil
 }
 
 func (s *server) SearchFiles(ctx context.Context, requestInfo *pb.SearchFilesRequest) (*pb.SearchFilesResponse, error) {
@@ -33,9 +32,7 @@ func (s *server) SearchFiles(ctx context.Context, requestInfo *pb.SearchFilesReq
 
 func main() {
 
-	fmt.Println(listFiles())
-
-	lis, err := net.Listen("tcp", ":9000")
+	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("Error al escuchar: %v", err)
 	}
@@ -56,7 +53,7 @@ func searchFile(name string) bool {
 	}
 }
 
-func listFiles() (string, int) {
+func listFiles() string {
 
 	names := make([]string, 0)
 	amount := 0
@@ -76,5 +73,5 @@ func listFiles() (string, int) {
 		amount += 1
 	}
 
-	return strings.Join(names[:], " , "), amount
+	return strings.Join(names[:], " , ")
 }

@@ -10,14 +10,13 @@ message ListFilesRequest {
 
 message ListFilesResponse {
   string file_list = 1;
-  int32 file_amount = 2;
 }
 
 message SearchFilesRequest {
   string pattern = 1;
 }
 
-message SearchFilesResponse{
+message SearchFilesResponse {
   bool exists = 1;
 }
 

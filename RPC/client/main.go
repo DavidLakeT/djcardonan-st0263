@@ -1,4 +1,4 @@
-package main
+package rpc
 
 import (
 	"context"
@@ -36,7 +36,7 @@ func RequestSearchFile(client pb.FilesInformationClient, filename string) bool {
 	return result
 }
 
-func requestListFiles(client pb.FilesInformationClient) (int32, string) {
+func requestListFiles(client pb.FilesInformationClient) string {
 
 	filesInfo := &pb.ListFilesRequest{}
 	response, err := client.ListFiles(context.Background(), filesInfo)
@@ -45,10 +45,8 @@ func requestListFiles(client pb.FilesInformationClient) (int32, string) {
 	}
 
 	resultList := response.FileList
-	resultAmount := response.FileAmount
 
-	log.Printf("Cantidad de archivos: %v", response.FileAmount)
 	log.Printf("Nombres de archivos: %v", response.FileList)
-	return resultAmount, resultList
+	return resultList
 
 }
