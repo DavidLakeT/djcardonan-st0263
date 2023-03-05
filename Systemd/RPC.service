@@ -1,0 +1,9 @@
+[Unit]
+Description=Programa RPC
+
+[Service]
+ExecStart=/ruta/al/programa1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
