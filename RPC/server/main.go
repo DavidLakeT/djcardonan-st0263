@@ -14,6 +14,8 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
+var config = GetConfig()
+
 type server struct {
 	pb.UnimplementedFilesInformationServer
 }
@@ -32,7 +34,7 @@ func (s *server) SearchFiles(ctx context.Context, requestInfo *pb.SearchFilesReq
 
 func main() {
 
-	lis, err := net.Listen("tcp", ":50051")
+	lis, err := net.Listen("tcp", ":"+config.PORT)
 	if err != nil {
 		log.Fatalf("Error al escuchar: %v", err)
 	}
@@ -46,7 +48,7 @@ func main() {
 
 func searchFile(name string) bool {
 
-	if _, err := os.Stat("Files/" + name); err == nil {
+	if _, err := os.Stat(config.DIR + name); err == nil {
 		return true
 	} else {
 		return false
@@ -58,7 +60,7 @@ func listFiles() string {
 	names := make([]string, 0)
 	amount := 0
 
-	files, err := ioutil.ReadDir("Files/")
+	files, err := ioutil.ReadDir(config.DIR)
 	if err != nil {
 		log.Fatal(err)
 	}

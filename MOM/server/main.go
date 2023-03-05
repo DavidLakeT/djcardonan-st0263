@@ -12,6 +12,8 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
+var config = GetConfig()
+
 func failOnError(err error, msg string) {
 	if err != nil {
 		log.Panicf("%s: %s", msg, err)
@@ -19,7 +21,8 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+
+	conn, err := amqp.Dial("amqp://guest:guest@" + config.IP + ":" + config.PORT + "/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
@@ -94,7 +97,7 @@ func main() {
 
 func searchFile(name string) bool {
 
-	if _, err := os.Stat("Files/" + name); err == nil {
+	if _, err := os.Stat(config.DIR + name); err == nil {
 		return true
 	} else {
 		return false
@@ -105,7 +108,7 @@ func listFiles() string {
 
 	names := make([]string, 0)
 
-	files, err := ioutil.ReadDir("Files/")
+	files, err := ioutil.ReadDir(config.DIR)
 	if err != nil {
 		log.Fatal(err)
 	}

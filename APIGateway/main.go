@@ -17,9 +17,12 @@ import (
 var rpc bool = true
 
 func main() {
+
+	config := GetConfig()
+
 	r := gin.Default()
 
-	connRPC, errRPC := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	connRPC, errRPC := grpc.Dial(config.IP+":"+config.PORT, grpc.WithInsecure())
 	if errRPC != nil {
 		log.Fatalf("Could not connect to gRPC server: %v", errRPC)
 	}
