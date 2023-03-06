@@ -98,5 +98,5 @@ func main() {
 
 	})
 
-	r.Run() // Iniciar el servidor Gin
+	r.Run(":" + config.PORT) // Iniciar el servidor Gin
 }
