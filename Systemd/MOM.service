@@ -2,7 +2,7 @@
 Description=Programa MOM
 
 [Service]
-ExecStart=/ruta/al/programa1
+ExecStart=/home/ubuntu/djcardonan-st0263/MOM/server/server
 Restart=always
 
 [Install]

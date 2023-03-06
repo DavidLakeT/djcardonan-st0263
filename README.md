@@ -86,6 +86,8 @@ Como requisitos para la ejecución de los ejecutables generados con ```go build`
 
 La carpeta Systemd cuenta con los archivos para la automatización de la inicialización de los microservicios en las instancias.
 
+Este proceso se puede realizar mediante la ejecución del archivo ```build.sh```.
+
 # 5 Consulta a la API Gateway
 
 Una vez se encuentran encendidos los tres componentes del sistema. Es posible acceder a estos utilizando la IP pública de la instancia donde se ejecuten (o localhost, si se ejecutan localmente) de la siguiente forma:

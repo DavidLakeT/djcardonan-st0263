@@ -2,7 +2,7 @@
 Description=Programa API
 
 [Service]
-ExecStart=/ruta/al/programa1
+ExecStart=/home/ubuntu/djcardonan-st0263/APIGateway/APIGateway
 Restart=always
 
 [Install]

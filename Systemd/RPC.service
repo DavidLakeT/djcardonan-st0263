@@ -2,7 +2,7 @@
 Description=Programa RPC
 
 [Service]
-ExecStart=/ruta/al/programa1
+ExecStart=/home/ubuntu/djcardonan-st0263/RPC/server/server
 Restart=always
 
 [Install]
