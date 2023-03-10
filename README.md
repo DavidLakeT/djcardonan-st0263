@@ -31,7 +31,7 @@ Por otra parte, en el modo MOM, la solicitud se envía a una cola de peticiones 
 Es decir, el sistema podría utilizar diferentes modos de comunicación según las necesidades (aunque en este caso lo hace únicamente basándose en el balance de las peticiones), y cada uno tiene su propio proceso para enviar y recibir solicitudes y respuestas de los microservicios.
 
 # 3. Ambiente de desarrollo
-# 3.1 Dir Tree
+# 3.1 Árbol de Directorios
 ![alt text](https://github.com/DavidLakeT/djcardonan-st0263/tree/main/Assets/tree.png)
 # 3.2 Lenguaje de programacion
 EL lenguaje utilizado para el desarrollo de todo el sistema fue Go (Golang) en su versión 1.20.1.
@@ -88,7 +88,7 @@ La carpeta Systemd cuenta con los archivos para la automatización de la inicial
 
 Este proceso se puede realizar mediante la ejecución del archivo ```build.sh```.
 
-# 5 Consulta a la API Gateway
+# 5. Consulta a la API Gateway
 
 Una vez se encuentran encendidos los tres componentes del sistema. Es posible acceder a estos utilizando la IP pública de la instancia donde se ejecuten (o localhost, si se ejecutan localmente) de la siguiente forma:
 
@@ -105,7 +105,7 @@ localhost:8080/search/<filename>
 **Nota:** Los nombres de los archivos (_filename_) deben incluir la extensión dado que podrían existir múltiples archivos con un nombre.
 
 
-# 5. referencias:
+# 6. referencias:
 - https://github.com/grpc/grpc-go
 - https://grpc.io/docs/languages/go/basics/
 - https://www.rabbitmq.com/tutorials/tutorial-six-go.html
