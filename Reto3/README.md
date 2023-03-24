@@ -5,10 +5,9 @@
 - Edwin Nelson Montoya Munera, emontoya@eafit.edu.co
 ```
 
-# 1. breve descripción de la actividad
-#
-<texto descriptivo>
-## 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+# 1. Breve descripción de la actividad
+
+## 1.1. ¿Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor? (requerimientos funcionales y no funcionales)
 
 - Una instancia de GCP con NGINX que equilibra la carga de las peticiones a las instancias de WordPress.
 - Dos instancias de WordPress conectadas a la VM de NFS y referidas por la instancia de NGINX.
@@ -17,11 +16,19 @@
 Un dominio en el que se puede acceder al sitio web: https://davidlake.tech
 - Certificados SSL creados a través de certbot.
 
-## 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
-
 # 2. información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
 
+La arquitectura de este proyecto se basa en la implementación de cinco nodos, cada uno de ellos representando una máquina virtual en GCP.
+
+Cuando el cliente ingresa el dominio en su navegador, el browser busca la IP pública correspondiente a través de Hostinger, la plataforma utilizada para gestionar el DNS. Una vez obtenida la IP, Nginx entra en acción y realiza un balanceo de carga sobre los dos servidores de WordPress, los cuales dependen de un NFS server para el manejo de los archivos y un servidor de base de datos ubicados en la última instancia.
+
 # 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+
+## 3.1) Sistema Operativo
+
+Las cinco instancias están configuradas para trabajar con Ubuntu 22.04 x86.
+
+## 3.2) Dependencias
 
 ## como se compila y ejecuta.
 ## detalles del desarrollo.
