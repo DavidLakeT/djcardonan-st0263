@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: 10.128.0.2
+      WORDPRESS_DB_USER: davidlake
+      WORDPRESS_DB_PASSWORD: secret
+      WORDPRESS_DB_NAME: topicostelematica
+    volumes:
+      - /mnt/wordpress:/var/www/html
