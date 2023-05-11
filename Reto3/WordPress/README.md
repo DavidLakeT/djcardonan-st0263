@@ -53,9 +53,3 @@ sudo mount <dirección_IP_del_servidor_NFS>:/var/nfs /mnt/nfs
 ``` Shell
 df -h
 ```
-
-4. Por otra parte, puedes editar el archivo /etc/fstab para agregar la siguiente línea que permite montar el directorio cada que se inicia la instancia:
-
-``` Shell
-host_ip:/var/nfs/general    /nfs/general   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
-```
