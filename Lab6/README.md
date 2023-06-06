@@ -6,23 +6,23 @@
 
 # 6.1 Hive
 
-### _New ERM Cluster_
+### _ERM Cluster_
 
 ![Imagen](assets/Captura1.png)
 
-### _Load data natively_
+### _Cargar información_
 
 ![Imagen](assets/Captura2.png)
 
-### _Create external table_
+### _Tabla externa_
 
 ![Imagen](assets/Captura3.png)
 
-### _Create external table in S3_
+### _Tabla externa en S3_
 
 ![Imagen](assets/Captura4.png)
 
-### _Select GNI both external and native_
+### _GNI externo y nativo_
 
 ![Imagen](assets/Captura5.png)
 
@@ -30,11 +30,11 @@
 ![Imagen](assets/Captura6.png)
 
 
-### _Join results from two tables_
+### _JOIN de dos tablas_
 
 ![Imagen](assets/Captura7.png)
 
-### _Create docs table both native and S3_
+### _Crear tablas docs_
 
 
 ![Imagen](assets/Captura8.png)
@@ -42,21 +42,65 @@
 ![Imagen](assets/Captura9.png)
 
 
-### _Select and order by word_
+### _Seleccionar y ordenar por cada palabra_
 
 ![Imagen](assets/Captura11.png)
 
 
-### _Select and order by frequency_
+### _Seleccionar y ordenar por frecuencia_
 
 ![Imagen](assets/Captura13.png)
 
 
-### _Create word frequency table_
+### _Crear tabla de frecuencia_
 
 ![Imagen](assets/Captura10.png)
 
 
-### _Spark and hive run_
+### _Spark and hive_
 
 ![Imagen](assets/Captura12.png)
+
+# 6.2 Glue & Athena
+
+### _Crear Crawler_
+
+![Imagen](assets/Captura14.png)
+
+### _Primer Query_
+
+![Imagen](assets/Captura15.png)
+
+### _Segundo Query_
+
+![Imagen](assets/Captura16.png)
+
+### _Tickit Data_
+
+![Imagen](assets/Captura17.png)
+
+# 6.3 Redshift
+
+### _Creación database_
+
+![Imagen](assets/Captura18.png)
+
+### _Creación tabla_
+
+![Imagen](assets/Captura19.png)
+
+### _Count_
+
+![Imagen](assets/Captura20.png)
+
+### _Event2 table_
+
+![Imagen](assets/Captura21.png)
+
+### _COPY event2_
+
+![Imagen](assets/Captura22.png)
+
+### _SELECT 10_
+
+![Imagen](assets/Captura23.png)
